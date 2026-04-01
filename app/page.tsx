@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
 const FEATURED_LISTINGS = [
-  { id: 1, type: 'Apartment', price: '₦850,000/yr', location: 'Lagos', bedrooms: 3, image: '🏢' },
-  { id: 2, type: 'Duplex', price: '₦2,500,000/yr', location: 'Abuja', bedrooms: 4, image: '🏠' },
-  { id: 3, type: 'Penthouse', price: '₦5,000,000/yr', location: 'Lagos', bedrooms: 5, image: '✨' },
+  { id: 1, type: 'Luxury Penthouse', price: '₦8,500,000/yr', location: 'Victoria Island', bedrooms: 4, image: '/building-2.jpg', rating: 4.9 },
+  { id: 2, type: 'Modern Apartment', price: '₦4,500,000/yr', location: 'Eko Atlantic', bedrooms: 3, image: '/building-1.jpg', rating: 4.8 },
+  { id: 3, type: 'Exclusive Villa', price: '₦15,000,000/yr', location: 'Banana Island', bedrooms: 5, image: '/building-3.jpg', rating: 4.9 },
 ]
 
 export default function Home() {
@@ -80,59 +80,51 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* Hero Section */}
-      <section className="mx-auto max-w-7xl px-6 py-16 md:px-8 md:py-24">
-        <div className="grid gap-12 md:grid-cols-2 md:items-start">
-          <div>
-            <h1 className="text-balance text-5xl font-bold text-slate-900 md:text-6xl leading-tight">
-              Your Next Home Awaits
+      {/* Hero Section with Full Width Image */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/building-1.jpg" 
+            alt="Luxury residential building" 
+            className="w-full h-full object-cover"
+          />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-8 w-full">
+          <div className="max-w-2xl">
+            <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
+              Your Perfect Home in Lagos
             </h1>
-            <p className="mt-6 text-lg text-slate-600 max-w-md">
-              Nigeria&apos;s most trusted real estate platform. Verified listings, transparent pricing, and community reviews.
+            <p className="text-xl text-slate-100 mb-10 max-w-xl">
+              Discover verified luxury properties across Lagos Island, Ikoyi, and beyond. Transparent pricing, trusted agents, and community reviews.
             </p>
             
             {/* Search Bar */}
-            <div className="mt-8 bg-white rounded-xl shadow-lg p-6 border border-slate-100">
+            <div className="bg-white rounded-xl shadow-2xl p-6 max-w-xl">
               <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   <input
                     type="text"
-                    placeholder="What (Apartment, Duplex...)"
+                    placeholder="Property type..."
                     className="px-4 py-3 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-700"
                   />
                   <select className="px-4 py-3 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
-                    <option>Where (State)</option>
+                    <option>All States</option>
                     {NIGERIAN_STATES.slice(0, 10).map(s => (
                       <option key={s}>{s}</option>
                     ))}
                   </select>
                 </div>
                 <Link href="/listings" className="block w-full">
-                  <Button className="w-full bg-amber-700 hover:bg-amber-800 text-white py-3 text-base font-semibold">
+                  <Button className="w-full bg-amber-700 hover:bg-amber-800 text-white py-3 text-base font-semibold rounded-lg">
                     Search Properties
                   </Button>
                 </Link>
               </div>
-            </div>
-          </div>
-          
-          {/* Property Stats */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white rounded-xl shadow-md p-6 border border-slate-100 text-center">
-              <p className="text-4xl font-bold text-amber-700">1000+</p>
-              <p className="text-sm text-slate-600 mt-2">Properties Listed</p>
-            </div>
-            <div className="bg-white rounded-xl shadow-md p-6 border border-slate-100 text-center">
-              <p className="text-4xl font-bold text-amber-700">500+</p>
-              <p className="text-sm text-slate-600 mt-2">Verified Agents</p>
-            </div>
-            <div className="bg-white rounded-xl shadow-md p-6 border border-slate-100 text-center">
-              <p className="text-4xl font-bold text-amber-700">4.8★</p>
-              <p className="text-sm text-slate-600 mt-2">Avg Rating</p>
-            </div>
-            <div className="bg-white rounded-xl shadow-md p-6 border border-slate-100 text-center">
-              <p className="text-4xl font-bold text-amber-700">36</p>
-              <p className="text-sm text-slate-600 mt-2">States Covered</p>
             </div>
           </div>
         </div>
@@ -151,26 +143,37 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3">
             {FEATURED_LISTINGS.map((listing) => (
               <Link key={listing.id} href={`/listings/${listing.id}`}>
-                <Card className="h-full hover:shadow-lg transition-shadow overflow-hidden cursor-pointer border-slate-200">
+                <Card className="h-full hover:shadow-2xl transition-all overflow-hidden border-0 hover:scale-105">
                   <CardContent className="p-0">
-                    <div className="bg-gradient-to-br from-amber-100 to-orange-100 h-48 flex items-center justify-center text-7xl">
-                      {listing.image}
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide">{listing.type}</p>
-                          <p className="text-2xl font-bold text-slate-900 mt-1">{listing.price}</p>
-                        </div>
-                        <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold">{listing.bedrooms} bd</span>
+                    {/* Image Container */}
+                    <div className="relative h-64 overflow-hidden bg-slate-200">
+                      <img 
+                        src={listing.image} 
+                        alt={listing.type}
+                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute top-4 right-4 bg-white rounded-full px-4 py-2 text-sm font-semibold text-amber-700 shadow-lg">
+                        {listing.bedrooms} bd
                       </div>
-                      <p className="text-slate-600 text-sm">{listing.location}</p>
-                      <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-                        <span className="text-xs text-slate-500">★★★★★ (45 reviews)</span>
-                        <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="p-6">
+                      <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-2">{listing.type}</p>
+                      <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2">{listing.type}</h3>
+                      <p className="text-3xl font-bold text-amber-700 mb-4">{listing.price}</p>
+                      <p className="text-slate-600 text-sm mb-4 flex items-center gap-2">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                        </svg>
+                        {listing.location}
+                      </p>
+                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span className="text-sm font-semibold text-amber-700">★{listing.rating}</span>
+                        <svg className="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
