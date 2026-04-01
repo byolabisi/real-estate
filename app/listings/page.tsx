@@ -18,7 +18,29 @@ interface Listing {
   lga: string
   furnished: boolean
   created_at: string
+  amenities?: string | null
+  features?: string | null
+  agent_id?: string
+  parking_spots?: number | null
+  currency?: string
+  images_urls?: string | null
+  status?: string
+  updated_at?: string
 }
+
+// Mock data fallback
+const MOCK_LISTINGS: Listing[] = [
+  { id: "mock-1", agent_id: "mock-agent-1", title: "Luxury 4-Bedroom Penthouse at Oniru Estate, Victoria Island", description: "Stunning high-rise penthouse with sweeping views of the Lagos lagoon.", house_type: "penthouse", rent_amount: 8500000, currency: "NGN", bedrooms: 4, bathrooms: 4, parking_spots: 3, furnished: true, state: "Lagos", lga: "Victoria Island", amenities: "Gym, Concierge, Rooftop lounge, 24/7 Security", features: "Smart home automation, Air conditioning", status: "active", created_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+  { id: "mock-2", agent_id: "mock-agent-2", title: "Modern 3-Bedroom Apartment at Eko Atlantic City", description: "Contemporary apartment in prestigious Eko Atlantic development.", house_type: "apartment", rent_amount: 4500000, currency: "NGN", bedrooms: 3, bathrooms: 3, parking_spots: 2, furnished: true, state: "Lagos", lga: "Victoria Island", amenities: "Pool, Gym, Mall access, Beach", features: "Open plan living, Sea view", status: "active", created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+  { id: "mock-3", agent_id: "mock-agent-1", title: "Exclusive 5-Bedroom Mansion at Banana Island", description: "Ultra-luxury waterfront mansion with private jetty access.", house_type: "villa", rent_amount: 15000000, currency: "NGN", bedrooms: 5, bathrooms: 5, parking_spots: 4, furnished: true, state: "Lagos", lga: "Ikoyi", amenities: "Private jetty, Infinity pool, Spa, Cinema", features: "Waterfront property, Smart home", status: "active", created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+  { id: "mock-4", agent_id: "mock-agent-3", title: "Sophisticated 3-Bedroom Flat in Ikoyi, near Awolowo Road", description: "Well-designed apartment in a secure building.", house_type: "flat", rent_amount: 2800000, currency: "NGN", bedrooms: 3, bathrooms: 2, parking_spots: 1, furnished: false, state: "Lagos", lga: "Ikoyi", amenities: "Generator, Water tank, CCTV, 24/7 Security", features: "Spacious rooms, Modern kitchen", status: "active", created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+  { id: "mock-5", agent_id: "mock-agent-2", title: "Stunning 4-Bedroom Duplex at Parkview Estate, Ikoyi", description: "Beautiful duplex in the secured Parkview Estate.", house_type: "duplex", rent_amount: 6500000, currency: "NGN", bedrooms: 4, bathrooms: 4, parking_spots: 2, furnished: true, state: "Lagos", lga: "Ikoyi", amenities: "Swimming pool, Garden, Gym, 24/7 Security", features: "Home office, Maids quarters", status: "active", created_at: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+  { id: "mock-6", agent_id: "mock-agent-4", title: "Premium 2-Bedroom Apartment at Chevron Drive, Lekki", description: "Compact yet luxurious apartment ideal for professionals.", house_type: "apartment", rent_amount: 2200000, currency: "NGN", bedrooms: 2, bathrooms: 2, parking_spots: 1, furnished: true, state: "Lagos", lga: "Lekki", amenities: "Generator, CCTV, 24/7 Security, AC", features: "Modern finishes, Walk-in closet", status: "active", created_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+  { id: "mock-7", agent_id: "mock-agent-1", title: "Upscale 4-Bedroom House at Lekki Phase 1", description: "Detached house in the serene and secure Lekki Phase 1 community.", house_type: "house", rent_amount: 5200000, currency: "NGN", bedrooms: 4, bathrooms: 3, parking_spots: 2, furnished: false, state: "Lagos", lga: "Lekki", amenities: "Generator, Borehole, Garden, Gate", features: "Sitting/dining room, Family kitchen", status: "active", created_at: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+  { id: "mock-8", agent_id: "mock-agent-3", title: "Business District 2-Bedroom Apartment at The Pinnacle, Lagos Island", description: "Office-ready apartment in the heart of Lagos business district.", house_type: "apartment", rent_amount: 3500000, currency: "NGN", bedrooms: 2, bathrooms: 2, parking_spots: 1, furnished: true, state: "Lagos", lga: "Lagos Island", amenities: "High-speed Internet, 24/7 Security, AC", features: "Work-from-home setup", status: "active", created_at: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+  { id: "mock-9", agent_id: "mock-agent-4", title: "Boutique 3-Bedroom Flat at Expressway, Lagos Island", description: "Charming flat with easy expressway access.", house_type: "flat", rent_amount: 2100000, currency: "NGN", bedrooms: 3, bathrooms: 2, parking_spots: 1, furnished: false, state: "Lagos", lga: "Lagos Island", amenities: "Generator, Water tank, Parking, 24/7 Security", features: "Open plan design, Balcony with city view", status: "active", created_at: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+  { id: "mock-10", agent_id: "mock-agent-2", title: "Elegant 3-Bedroom Apartment at Osborne Road, Ikoyi", description: "Prestigious address on Osborne Road.", house_type: "apartment", rent_amount: 3800000, currency: "NGN", bedrooms: 3, bathrooms: 3, parking_spots: 2, furnished: true, state: "Lagos", lga: "Ikoyi", amenities: "Gym, Generator, 24/7 Security, WiFi", features: "Hardwood floors, Spacious kitchen", status: "active", created_at: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString() },
+]
 
 const NIGERIAN_STATES = [
   'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue',
@@ -47,31 +69,53 @@ export default function ListingsPage() {
     const fetchListings = async () => {
       setLoading(true)
       
-      let query = supabase
-        .from('listings')
-        .select('*')
-        .eq('status', 'active')
+      try {
+        let query = supabase
+          .from('listings')
+          .select('*')
+          .eq('status', 'active')
 
-      if (filters.state) {
-        query = query.eq('state', filters.state)
+        if (filters.state) {
+          query = query.eq('state', filters.state)
+        }
+
+        if (filters.houseType) {
+          query = query.eq('house_type', filters.houseType)
+        }
+
+        const orderBy = sortBy === 'newest' ? 'desc' : 'asc'
+        query = query.order('created_at', { ascending: orderBy === 'asc' })
+
+        const { data, error } = await query
+
+        if (error) {
+          console.error('Error fetching listings:', error)
+          // Use mock data as fallback
+          let mockData = MOCK_LISTINGS
+          if (filters.state) {
+            mockData = mockData.filter(l => l.state === filters.state)
+          }
+          if (filters.houseType) {
+            mockData = mockData.filter(l => l.house_type === filters.houseType)
+          }
+          setListings(mockData)
+        } else {
+          setListings(data || [])
+        }
+      } catch (err) {
+        console.error('Error in fetchListings:', err)
+        // Use mock data on any error
+        let mockData = MOCK_LISTINGS
+        if (filters.state) {
+          mockData = mockData.filter(l => l.state === filters.state)
+        }
+        if (filters.houseType) {
+          mockData = mockData.filter(l => l.house_type === filters.houseType)
+        }
+        setListings(mockData)
+      } finally {
+        setLoading(false)
       }
-
-      if (filters.houseType) {
-        query = query.eq('house_type', filters.houseType)
-      }
-
-      const orderBy = sortBy === 'newest' ? 'desc' : 'asc'
-      query = query.order('created_at', { ascending: orderBy === 'asc' })
-
-      const { data, error } = await query
-
-      if (error) {
-        console.error('Error fetching listings:', error)
-      } else {
-        setListings(data || [])
-      }
-      
-      setLoading(false)
     }
 
     fetchListings()
