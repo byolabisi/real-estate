@@ -13,22 +13,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: "Invalid email address" },
-        { status: 400 }
-      );
-    }
+    // Add to waitlist
+    const waitlistEntry = await joinWaitlist(email, userType, state, lga);
 
-    // Add to waitlist (with fallback if database doesn't exist)
-    let waitlistEntry;
-    try {
-      waitlistEntry = await joinWaitlist(email, userType, state, lga);
-    } catch (dbError) {
-      // If database is not available, continue without storing (graceful fallback)
-      console.warn("Database unavailable, continuing without storage:", dbError);
+    if (!waitlistEntry) {
+      return NextResponse.json(
+        { error: "Failed to join waitlist" },
+        { status: 500 }
+      );
     }
 
     // Extract name from email or use generic greeting
@@ -45,18 +37,18 @@ export async function POST(request: NextRequest) {
       });
     } catch (emailError) {
       console.error("Failed to send welcome email:", emailError);
-      // Continue even if email fails - user still joined waitlist
+      // Don't fail the entire request if email fails
     }
 
     return NextResponse.json({
       success: true,
       message: "Successfully joined waitlist. Check your email for welcome message!",
-      waitlistId: waitlistEntry?.id || null,
+      waitlistId: waitlistEntry.id,
     });
   } catch (error) {
     console.error("Waitlist join error:", error);
     return NextResponse.json(
-      { error: "Failed to process your request. Please try again." },
+      { error: "Failed to join waitlist" },
       { status: 500 }
     );
   }

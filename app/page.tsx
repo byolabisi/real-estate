@@ -298,24 +298,24 @@ export default function Home() {
               <h3 className="font-semibold text-white mb-4">For Buyers</h3>
               <ul className="space-y-2 text-sm text-slate-400">
                 <li><Link href="/listings" className="hover:text-white transition">Browse Listings</Link></li>
-                <li><Link href="/listings" className="hover:text-white transition">Search Properties</Link></li>
-                <li><Link href="/reviews/create" className="hover:text-white transition">Leave Reviews</Link></li>
+                <li><Link href="#" className="hover:text-white transition">Search Properties</Link></li>
+                <li><Link href="#" className="hover:text-white transition">Tenant Reviews</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold text-white mb-4">For Agents</h3>
               <ul className="space-y-2 text-sm text-slate-400">
                 <li><Link href="/listings/create" className="hover:text-white transition">List Property</Link></li>
-                <li><Link href="/dashboard" className="hover:text-white transition">Dashboard</Link></li>
-                <li><Link href="/agents" className="hover:text-white transition">Find Agents</Link></li>
+                <li><Link href="/profile" className="hover:text-white transition">My Profile</Link></li>
+                <li><Link href="#" className="hover:text-white transition">Agent Tools</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold text-white mb-4">Legal</h3>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="#" className="hover:text-white transition text-opacity-50 cursor-not-allowed">Terms of Service</Link></li>
-                <li><Link href="#" className="hover:text-white transition text-opacity-50 cursor-not-allowed">Privacy Policy</Link></li>
-                <li><Link href="#" className="hover:text-white transition text-opacity-50 cursor-not-allowed">Data Protection</Link></li>
+                <li><Link href="#" className="hover:text-white transition">Terms of Service</Link></li>
+                <li><Link href="#" className="hover:text-white transition">Privacy Policy</Link></li>
+                <li><Link href="#" className="hover:text-white transition">Data Protection</Link></li>
               </ul>
             </div>
           </div>
