@@ -65,9 +65,7 @@ export default function Page() {
         email,
         password,
         options: {
-          emailRedirectTo:
-            process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-            `${window.location.origin}/dashboard`,
+          emailRedirectTo: `${window.location.origin}/auth/sign-up-success`,
           data: {
             first_name: firstName,
             last_name: lastName,

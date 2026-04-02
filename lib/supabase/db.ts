@@ -713,6 +713,49 @@ export async function logEmail(
   ]);
 
   if (error) {
-
+    console.error("Error logging email:", error);
   }
+}
+
+// Waitlist operations
+export async function joinWaitlist(
+  email: string,
+  userType: string,
+  state?: string,
+  lga?: string
+) {
+  const supabase = await createClient();
+  
+  // Check if already on waitlist
+  const { data: existing } = await supabase
+    .from("waitlist")
+    .select("id")
+    .eq("email", email)
+    .single();
+
+  if (existing) {
+    return existing;
+  }
+
+  // Add to waitlist
+  const { data, error } = await supabase
+    .from("waitlist")
+    .insert([
+      {
+        email,
+        user_type: userType,
+        state: state || null,
+        lga: lga || null,
+        joined_at: new Date().toISOString(),
+      },
+    ])
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error joining waitlist:", error);
+    return null;
+  }
+
+  return data;
 }
