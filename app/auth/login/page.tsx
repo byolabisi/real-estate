@@ -43,57 +43,92 @@ export default function Page() {
   }
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <div className="flex flex-col gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">Login</CardTitle>
-              <CardDescription>
-                Enter your email below to login to your account
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleLogin}>
-                <div className="flex flex-col gap-6">
-                  <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="m@example.com"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                  {error && <p className="text-sm text-red-500">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? 'Logging in...' : 'Login'}
-                  </Button>
+    <div className="min-h-svh flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 p-6">
+      <div className="w-full max-w-md">
+        <div className="space-y-8">
+          {/* Header */}
+          <div className="space-y-2 text-center">
+            <h1 className="text-3xl font-bold text-slate-900">Welcome Back</h1>
+            <p className="text-slate-600">Sign in to your real estate dashboard</p>
+          </div>
+
+          {/* Form Card */}
+          <Card className="border border-slate-200 shadow-lg">
+            <CardContent className="pt-8">
+              <form onSubmit={handleLogin} className="space-y-6">
+                {/* Email Input */}
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-slate-700 font-medium">
+                    Email Address
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="h-11 border-slate-200 focus:border-primary focus:ring-primary"
+                  />
                 </div>
-                <div className="mt-4 text-center text-sm">
-                  Don&apos;t have an account?{' '}
-                  <Link
-                    href="/auth/sign-up"
-                    className="underline underline-offset-4"
-                  >
-                    Sign up
-                  </Link>
+
+                {/* Password Input */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="password" className="text-slate-700 font-medium">
+                      Password
+                    </Label>
+                    <Link href="#" className="text-xs text-primary hover:underline font-medium">
+                      Forgot password?
+                    </Link>
+                  </div>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="h-11 border-slate-200 focus:border-primary focus:ring-primary"
+                  />
                 </div>
+
+                {/* Error Message */}
+                {error && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                    <p className="text-sm text-red-700">{error}</p>
+                  </div>
+                )}
+
+                {/* Login Button */}
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full h-11 bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-colors"
+                >
+                  {isLoading ? (
+                    <span className="flex items-center gap-2">
+                      <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Signing in...
+                    </span>
+                  ) : (
+                    'Sign In'
+                  )}
+                </Button>
               </form>
             </CardContent>
           </Card>
+
+          {/* Signup Link */}
+          <p className="text-center text-sm text-slate-600">
+            Don&apos;t have an account?{' '}
+            <Link
+              href="/auth/sign-up"
+              className="font-semibold text-primary hover:text-primary/80 transition-colors"
+            >
+              Create one now
+            </Link>
+          </p>
         </div>
       </div>
     </div>
