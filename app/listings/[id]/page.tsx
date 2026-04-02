@@ -40,6 +40,13 @@ interface AgentRating {
   created_at: string
 }
 
+// Mock data for fallback
+const MOCK_LISTINGS: Listing[] = [
+  { id: "mock-1", agent_id: "mock-agent-1", title: "Luxury 4-Bedroom Penthouse at Oniru Estate, Victoria Island", description: "Stunning high-rise penthouse with sweeping views of the Lagos lagoon.", house_type: "penthouse", rent_amount: 8500000, bedrooms: 4, bathrooms: 4, parking_spots: 3, furnished: true, state: "Lagos", lga: "Victoria Island", amenities: "Gym, Concierge, Rooftop lounge, 24/7 Security", features: "Smart home automation, Air conditioning", created_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString() },
+  { id: "mock-2", agent_id: "mock-agent-2", title: "Modern 3-Bedroom Apartment at Eko Atlantic City", description: "Contemporary apartment in prestigious Eko Atlantic development.", house_type: "apartment", rent_amount: 4500000, bedrooms: 3, bathrooms: 3, parking_spots: 2, furnished: true, state: "Lagos", lga: "Victoria Island", amenities: "Pool, Gym, Mall access, Beach", features: "Open plan living, Sea view", created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString() },
+  { id: "mock-11", agent_id: "mock-agent-5", title: "Cozy Self-Contained Studio at Yaba, Near Unilag", description: "Perfect starter home or investment property. Fully furnished studio apartment close to Unilag campus.", house_type: "room", rent_amount: 450000, bedrooms: 0, bathrooms: 1, parking_spots: 0, furnished: true, state: "Lagos", lga: "Yaba", amenities: "Generator, Water supply, 24/7 Security", features: "Open plan living, Fitted kitchen", created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() },
+]
+
 export default function ListingDetailPage() {
   const params = useParams()
   const id = params?.id as string
@@ -68,7 +75,11 @@ export default function ListingDetailPage() {
         .single()
 
       if (listingError || !listingData) {
-        console.error('Error fetching listing:', listingError)
+        // Fallback to mock data
+        const mockListing = MOCK_LISTINGS.find(l => l.id === id)
+        if (mockListing) {
+          setListing(mockListing)
+        }
         setLoading(false)
         return
       }

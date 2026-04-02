@@ -489,7 +489,6 @@ export async function getUser(userId: string): Promise<User | null> {
     .single();
 
   if (error) {
-    console.error("Error fetching user:", error);
     return null;
   }
 
@@ -509,7 +508,6 @@ export async function updateUser(userId: string, updates: Partial<User>) {
     .single();
 
   if (error) {
-    console.error("Error updating user:", error);
     return null;
   }
 
@@ -526,7 +524,7 @@ export async function createListing(listing: Omit<Listing, "id" | "created_at" |
     .single();
 
   if (error) {
-    console.error("Error creating listing:", error);
+
     return null;
   }
 
@@ -554,8 +552,7 @@ export async function getActiveListings(filters?: {
   const { data, error } = await query.order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Error fetching listings:", error);
-    // Return mock data as fallback
+    // Expected when database tables don't exist - use mock data as fallback
     let mockData = MOCK_LISTINGS;
     if (filters?.state) {
       mockData = mockData.filter((l) => l.state === filters.state);
@@ -581,8 +578,7 @@ export async function getListingById(id: string): Promise<Listing | null> {
     .single();
 
   if (error) {
-    console.error("Error fetching listing:", error);
-    // Return mock data as fallback
+    // Expected when database tables don't exist - use mock data as fallback
     const mockListing = MOCK_LISTINGS.find((l) => l.id === id);
     return mockListing || null;
   }
@@ -599,7 +595,7 @@ export async function getUserListings(agentId: string) {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Error fetching user listings:", error);
+
     return [];
   }
 
@@ -619,7 +615,7 @@ export async function updateListing(id: string, updates: Partial<Listing>) {
     .single();
 
   if (error) {
-    console.error("Error updating listing:", error);
+
     return null;
   }
 
@@ -631,7 +627,7 @@ export async function deleteListing(id: string) {
   const { error } = await supabase.from("listings").delete().eq("id", id);
 
   if (error) {
-    console.error("Error deleting listing:", error);
+
     return false;
   }
 
@@ -656,7 +652,7 @@ export async function joinWaitlist(email: string, userType: string, state?: stri
     .single();
 
   if (error) {
-    console.error("Error joining waitlist:", error);
+
     return null;
   }
 
@@ -717,6 +713,6 @@ export async function logEmail(
   ]);
 
   if (error) {
-    console.error("Error logging email:", error);
+
   }
 }

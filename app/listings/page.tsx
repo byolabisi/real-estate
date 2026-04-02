@@ -95,8 +95,7 @@ export default function ListingsPage() {
         const { data, error } = await query
 
         if (error) {
-          console.error('Error fetching listings:', error)
-          // Use mock data as fallback
+          // Expected when database tables don't exist - use mock data
           let mockData = MOCK_LISTINGS
           if (filters.state) {
             mockData = mockData.filter(l => l.state === filters.state)
@@ -109,7 +108,6 @@ export default function ListingsPage() {
           setListings(data || [])
         }
       } catch (err) {
-        console.error('Error in fetchListings:', err)
         // Use mock data on any error
         let mockData = MOCK_LISTINGS
         if (filters.state) {
